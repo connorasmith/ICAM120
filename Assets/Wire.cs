@@ -9,6 +9,8 @@ public class Wire : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        Wire.wireComplete = false;
 	
 	}
 	

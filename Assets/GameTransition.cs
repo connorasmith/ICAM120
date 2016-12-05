@@ -8,9 +8,7 @@ public class GameTransition : MonoBehaviour {
 
     public static GameTransition instance;
 
-    [SerializeField] private Light light;
-
-    [SerializeField] private float lightNewIntensity;
+    [SerializeField] private Light dimLight;
 
     [SerializeField] private TextMesh[] textObjects;
 
@@ -31,8 +29,6 @@ public class GameTransition : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        Transition();
 	
 	}
 	
@@ -46,6 +42,13 @@ public class GameTransition : MonoBehaviour {
 
         }
 
+        // If they failed and waiting out the argument.
+        if (fightingSource.time > fightingSource.clip.length)
+        {
+
+            Transition();
+
+        }
     }
 
     public void Transition() {
@@ -58,22 +61,22 @@ public class GameTransition : MonoBehaviour {
     public IEnumerator TransitionCoroutine() {
 
         float fightVolumeStart = fightingSource.volume;
-        float fightEnd = 0.0f;
+        float fightEnd = 0.75f;
 
-        float lightStart = light.intensity;
-        float lightEnd = 0.0f;
+        float lightStart = dimLight.intensity;
+        float lightEnd = 0.75f;
 
         for (float i = 0; i < 5.0f; i+=Time.deltaTime) {
 
             fightingSource.volume = Mathf.Lerp(fightVolumeStart, fightEnd, i / 5.0f);
-            light.intensity = Mathf.Lerp(lightStart, lightEnd, i / 5.0f);
+            dimLight.intensity = Mathf.Lerp(lightStart, lightEnd, i / 5.0f);
 
             yield return null;
 
         }
 
         fightingSource.volume = 0.0f;
-        light.intensity = 0.0f;
+        dimLight.intensity = 0.0f;
 
 
         yield return StartCoroutine(SetAllTextMessages("Blank domestic abuse happens every year"));
@@ -84,9 +87,6 @@ public class GameTransition : MonoBehaviour {
         yield return StartCoroutine(SetAllTextMessages("Press touchpad to try again"));
 
         StartCoroutine(WaitForTriggerPress());
-        
-
-
 
     }
 
@@ -144,16 +144,10 @@ public class GameTransition : MonoBehaviour {
 
                 SceneManager.LoadScene("GameScene");
 
-
             }
-
-
 
             yield return null;
 
         }
-
-
-
     }
 }
