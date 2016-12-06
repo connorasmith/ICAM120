@@ -23,7 +23,6 @@ public class GameTransition : MonoBehaviour {
     private string[] afterGameText = new string[]
     {
         "Default Text",
-        "20 people per minute are abused by their partner in the U.S.",
         "1 in 3 women and 1 in 4 men are victims of physical violence.",
         "1 in 15 children are exposed to intimate partner violence yearly.",
         "More than 20,000 calls reach domestic violence hotlines daily.",
@@ -110,6 +109,7 @@ public class GameTransition : MonoBehaviour {
         fightingSource.volume = 0.0f;
         dimLight.intensity = dimLevel;
 
+        StartCoroutine(WaitForTriggerPress());
 
         foreach (string str in afterGameText)
         {
@@ -120,7 +120,6 @@ public class GameTransition : MonoBehaviour {
             yield return new WaitForSeconds(5.0f);
         }
 
-        StartCoroutine(WaitForTriggerPress());
 
     }
 
