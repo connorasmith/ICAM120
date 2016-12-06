@@ -15,6 +15,17 @@ public class GameTransition : MonoBehaviour {
     public SteamVR_TrackedObject trackedObj1;
     public SteamVR_TrackedObject trackedObj2;
 
+    private string[] afterGameText = new string[]
+    {
+        "Default Text",
+        "20 people per minute are abused by their partner in the U.S.",
+        "1 in 3 women and 1 in 4 men are victims of physical violence.",
+        "1 in 15 children are exposed to intimate partner violence yearly.",
+        "More than 20,000 calls reach domestic violence hotlines daily.",
+        "Press the touchpad to try again."
+
+    };
+
     void Awake() {
 
         if (instance == null) {
@@ -29,7 +40,9 @@ public class GameTransition : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
+
+        Transition();
+
 	}
 	
 	// Update is called once per frame
@@ -76,15 +89,17 @@ public class GameTransition : MonoBehaviour {
         }
 
         fightingSource.volume = 0.0f;
-        dimLight.intensity = 0.0f;
+        dimLight.intensity = 0.75f;
 
 
-        yield return StartCoroutine(SetAllTextMessages("Blank domestic abuse happens every year"));
+        foreach (string str in afterGameText)
+        {
 
-        yield return new WaitForSeconds(5.0f);
+            yield return StartCoroutine(SetAllTextMessages(str));
 
 
-        yield return StartCoroutine(SetAllTextMessages("Press touchpad to try again"));
+            yield return new WaitForSeconds(5.0f);
+        }
 
         StartCoroutine(WaitForTriggerPress());
 
