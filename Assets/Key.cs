@@ -12,15 +12,4 @@ public class Key : MonoBehaviour {
 	void Update () {
 	
 	}
-
-    public void OnTriggerEnter(Collider other) {
-
-        if (other.GetComponent<DoorKnob>()) {
-
-            GameTransition.instance.Transition();
-
-        }
-
-
-    }
 }

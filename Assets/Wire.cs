@@ -24,13 +24,14 @@ public class Wire : MonoBehaviour {
         if (other.GetComponent<Tape>()) {
 
             GameObject.Destroy(other.gameObject);
+
+
+            completeWire.SetActive(true);
+
+            Wire.wireComplete = true;
+
+            this.gameObject.SetActive(false);
         }
-
-        completeWire.SetActive(true);
-
-        Wire.wireComplete = true;
-
-        this.gameObject.SetActive(false);
 
     }
 }
